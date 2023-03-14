@@ -96,5 +96,6 @@ class DatabaseSeeder extends Seeder
         $chamroeunoum->assignRole( $super );
         $sophannithchea->assignRole( $super );
 
+        $this->call(TransactionTypesTableSeeder::class);
     }
 }
