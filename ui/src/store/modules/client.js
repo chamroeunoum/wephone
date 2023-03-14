@@ -66,6 +66,9 @@ const actions = {
   async activate({state, commit, rootState}, params){
     return await crud.update(rootState.apiServer+"/"+state.model.name+"/activate",params)
   },
+  async compact ({ state, commit, rootState },params) {
+    return await crud.list(rootState.apiServer+"/"+state.model.name+'/compact',params)
+  },
 }
 
 // mutations

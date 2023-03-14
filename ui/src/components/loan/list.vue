@@ -401,7 +401,7 @@ export default {
       /**
        * Clear time interval after calling
        */
-      store.dispatch('people/compact',{
+      store.dispatch('client/compact',{
         search: '' ,
         perPage: 20 ,
         page: table.pagination.page

@@ -135,7 +135,7 @@ class ClientController extends Controller
                 'email' => $request->email,
                 'active' => $request->active == true || $request->active == 1 ? 1 : 0 ,
                 'password' => bcrypt($request->password) ,
-                'phone' => $request->phone ,
+                'mobile_phone' => $request->phone ,
                 'username' => $request->username
             ]);
 
