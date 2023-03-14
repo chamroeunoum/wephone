@@ -135,7 +135,7 @@ class ClientController extends Controller
                 'email' => $request->email,
                 'active' => $request->active == true || $request->active == 1 ? 1 : 0 ,
                 'password' => bcrypt($request->password) ,
-                'mobile_phone' => $request->phone ,
+                'phone' => $request->phone ,
                 'username' => $request->username
             ]);
 
@@ -157,7 +157,7 @@ class ClientController extends Controller
                     'lastname' => $user->lastname , 
                     'gender' => $user->gender , 
                     'dob' => $user->dob , 
-                    'mobile_phone' => $user->mobile_phone , 
+                    'mobile_phone' => $user->phone , 
                     'email' => $user->email , 
                     'image' => $user->avatar_url , 
                     'member_since' => \Carbon\Carbon::today()->format('YmdHis')
