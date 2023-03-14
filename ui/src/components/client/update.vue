@@ -165,7 +165,7 @@ export default {
         email: props.record.email
       }).then( res => {
         if( res.data.ok ){
-          notify.warning({
+          notify.success({
             title: 'រក្សារទុកព័ត៌មាន' ,
             description: res.data.message ,
             duration: 2000

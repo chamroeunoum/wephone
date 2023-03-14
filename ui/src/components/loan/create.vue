@@ -1,7 +1,7 @@
 <template>
   <!-- Form edit account -->
     <div class="vcb-pop-create font-ktr">
-      <n-modal v-model:show="show" :on-after-leave="onClose" transform-origin="center">
+      <n-modal v-model:show="show" :on-after-leave="clearRecord" transform-origin="center">
         <n-card class="w-1/2 font-pvh text-xl" :title="'បន្ថែម ' + model.title" :bordered="false" size="small">
           <template #header-extra>
             <n-button type="success" @click="create()" >
@@ -91,7 +91,7 @@ export default {
           balance: 0.0 ,
           rate: 0.0 ,
           duration: 0 ,
-          start_date: new Date()
+          start_date: Date.now()
         })
       },
       // validator: (val) => {
@@ -156,14 +156,14 @@ export default {
      * Functions
      */
     function clearRecord(){
-      props.record = {
-        id : 0 ,
-        people_id: '' ,
-        balance: 0.0 ,
-        rate: 0.0 ,
-        duration: 0 ,
-        start_date: new Date()
-      }
+      props.record.id = 0 
+      props.record.people_id = '' ,
+      props.record.balance = 0.0 ,
+      props.record.rate = 0.0 ,
+      props.record.duration = 0 ,
+      props.record.start_date = Date.now()
+      // props.show = false
+      props.onClose()
     }
 
     function create(){
@@ -217,13 +217,12 @@ export default {
       }).then( res => {
         switch( res.status ){
           case 200 : 
-            notify.warning({
+            notify.success({
               'title' : 'រក្សារទុកព័ត៌មាន' ,
               'description' : res.data.message ,
               duration : 3000
             })
             clearRecord()
-            props.onClose()
           break;
         }
       }).catch( err => {
@@ -310,6 +309,7 @@ export default {
       /**
        * Functions
        */
+      clearRecord ,
       create ,
       // checkUsername ,
       // checkPhone ,

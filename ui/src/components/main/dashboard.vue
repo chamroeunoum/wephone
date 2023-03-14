@@ -125,7 +125,7 @@ export default {
                     totalBalances.value = res.data.balance > 0 ? res.data.balance : 0
                     totalPrinciples.value = res.data.principle > 0 ? res.data.principle : 0
                     totalInterests.value = res.data.interest > 0 ? res.data.interest : 0
-                    totalOwnedInterests.value = res.data.owned_interest > 0 ? res.data.owned_interest : 0
+                    totalOwnedInterests.value = res.data.owned_interest > 0 ? res.data.balance : 0
                 }else{
                     totalBalances.value = 0
                     totalPrinciples.value = 0

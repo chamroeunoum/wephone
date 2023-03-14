@@ -1,7 +1,7 @@
 <template>
   <!-- Form edit account -->
     <div class="vcb-pop-create font-ktr">
-      <n-modal v-model:show="show" :on-after-leave="onClose" transform-origin="center">
+      <n-modal v-model:show="show" :on-after-leave="clearRecord" transform-origin="center">
         <n-card class="w-1/2 font-pvh text-xl" :title="'កែប្រែ ' + model.title" :bordered="false" size="small">
           <template #header-extra>
             <n-button type="success" @click="update()" >
@@ -137,14 +137,14 @@ export default {
      * Functions
      */
     function clearRecord(){
-      props.record = {
-        id : 0 ,
-        people_id: '' ,
-        balance: 0.0 ,
-        rate: 0.0 ,
-        duration: 0 ,
-        start_date: new Date()
-      }
+      props.record.id = 0 
+      props.record.people_id = '' ,
+      props.record.balance = 0.0 ,
+      props.record.rate = 0.0 ,
+      props.record.duration = 0 ,
+      props.record.start_date = Date.now()
+      // props.show = false
+      props.onClose()
     }
 
     function update(){
@@ -197,13 +197,12 @@ export default {
         people_id: props.record.people_id
       }).then( res => {
         if( res.data.ok ){
-          notify.warning({
+          notify.success({
             title: 'រក្សារទុកព័ត៌មាន' ,
             description: res.data.message ,
             duration: 2000
           })
           clearRecord()
-          props.onClose()
         }else{
           notify.error({
             title: 'រក្សារទុកព័ត៌មាន' ,
@@ -229,6 +228,7 @@ export default {
       /**
        * Functions
        */
+      clearRecord ,
       update 
     }
   }
