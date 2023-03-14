@@ -115,17 +115,17 @@ export default {
         /**
          * Total balances
          */
-        const totalBalances = ref(null)
-        const totalPrinciples = ref(null)
-        const totalInterests = ref(null)
-        const totalOwnedInterests = ref(null)
+        const totalBalances = ref(0)
+        const totalPrinciples = ref(0)
+        const totalInterests = ref(0)
+        const totalOwnedInterests = ref(0)
         function getBPIW(){
             store.dispatch('loan/totalBPIW',{}).then( res => {
                 if( res.data.ok ){
-                    totalBalances.value = res.data.balance
-                    totalPrinciples.value = res.data.principle
-                    totalInterests.value = res.data.interest
-                    totalOwnedInterests.value = res.data.owned_interest
+                    totalBalances.value = res.data.balance > 0 ? res.data.balance : 0
+                    totalPrinciples.value = res.data.principle > 0 ? res.data.principle : 0
+                    totalInterests.value = res.data.interest > 0 ? res.data.interest : 0
+                    totalOwnedInterests.value = res.data.owned_interest > 0 ? res.data.owned_interest : 0
                 }else{
                     totalBalances.value = 0
                     totalPrinciples.value = 0
