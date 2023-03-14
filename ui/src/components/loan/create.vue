@@ -298,7 +298,7 @@ export default {
     // }
 
     const options = computed( () => {
-      return props.people.length > 0 ? props.people.map( p => { return {label: p.id + ". " +p.lastname + " " + p.firstname + " , " + p.email + " , " + p.mobile_phone, value: p.id } }) : []
+      return props.people.length > 0 ? props.people.map( p => { return {label: p.id + ". " +p.lastname + " " + p.firstname + " , " + p.email + " , " + p.phone, value: p.id } }) : []
     })
 
     return {
