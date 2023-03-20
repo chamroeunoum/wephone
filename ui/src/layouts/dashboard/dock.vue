@@ -166,6 +166,105 @@ export default {
               // 5 // Customer
           ]
       },
+      /**
+       * Product Modules
+       */
+      {
+          url: '/product' ,
+          icon: 'MoneyHand20Regular' ,
+          name: 'ផលិតផល' ,
+          roles: [
+              1, // Admin
+              2, // Super
+              // 3, // Auditor
+              // 4, // Member
+              // 5 // Customer
+          ]
+      },
+      /**
+       * Product attribute module
+       */
+      //  {
+      //     url: '/attribute' ,
+      //     icon: 'MoneyHand20Regular' ,
+      //     name: 'លក្ខណផលិតផល' ,
+      //     roles: [
+      //         1, // Admin
+      //         2, // Super
+      //         // 3, // Auditor
+      //         // 4, // Member
+      //         // 5 // Customer
+      //     ]
+      // },
+      /**
+       * Product variant module
+       */
+      // {
+      //     url: '/variant' ,
+      //     icon: 'MoneyHand20Regular' ,
+      //     name: 'អនុលក្ខណផលិតផល' ,
+      //     roles: [
+      //         1, // Admin
+      //         2, // Super
+      //         // 3, // Auditor
+      //         // 4, // Member
+      //         // 5 // Customer
+      //     ]
+      // },
+      /**
+       * Product attribute variant
+       */
+      // {
+      //     url: '/attributevariant' ,
+      //     icon: 'MoneyHand20Regular' ,
+      //     name: 'លក្ខណបន្សំផលិតផល' ,
+      //     roles: [
+      //         1, // Admin
+      //         2, // Super
+      //         // 3, // Auditor
+      //         // 4, // Member
+      //         // 5 // Customer
+      //     ]
+      // },
+      // {
+      //     url: '/unit' ,
+      //     icon: 'MoneyHand20Regular' ,
+      //     name: 'ឯកតា' ,
+      //     roles: [
+      //         1, // Admin
+      //         2, // Super
+      //         // 3, // Auditor
+      //         // 4, // Member
+      //         // 5 // Customer
+      //     ]
+      // },
+      // {
+      //     url: '/unitconvention' ,
+      //     icon: 'MoneyHand20Regular' ,
+      //     name: 'បម្លែងឯកតា' ,
+      //     roles: [
+      //         1, // Admin
+      //         2, // Super
+      //         // 3, // Auditor
+      //         // 4, // Member
+      //         // 5 // Customer
+      //     ]
+      // },
+      {
+          url: '/stock' ,
+          icon: 'MoneyHand20Regular' ,
+          name: 'ឃ្លាំង' ,
+          roles: [
+              1, // Admin
+              2, // Super
+              // 3, // Auditor
+              // 4, // Member
+              // 5 // Customer
+          ]
+      },
+      /**
+       * End of product modules
+       */
       // {
       //     url: '/receive' ,
       //     icon: 'Receipt20Regular' ,

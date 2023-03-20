@@ -20,6 +20,14 @@ use App\Http\Controllers\Api\Admin\PeopleController;
 use App\Http\Controllers\Api\Admin\LoanController;
 use App\Http\Controllers\Api\Admin\LoanTransactionController;
 
+use App\Http\Controllers\Api\Admin\Product\ProductController;
+use App\Http\Controllers\Api\Admin\Product\AttributeController;
+use App\Http\Controllers\Api\Admin\Product\VariantController;
+use App\Http\Controllers\Api\Admin\Product\AttributeVariantController;
+use App\Http\Controllers\Api\Admin\Product\UnitController;
+use App\Http\Controllers\Api\Admin\Product\UnitConventionController;
+use App\Http\Controllers\Api\Admin\Product\StockController;
+
 Route::group([
     'prefix' => 'admin' ,
     'api'
@@ -152,12 +160,105 @@ Route::group([
     Route::group([
         'prefix' => 'people',
     ], function () {
-
         Route::get('', [PeopleController::class,'index']);
         Route::post('create', [PeopleController::class,'create']);
         Route::put('update', [PeopleController::class,'update']);
         Route::get('{id}/read', [PeopleController::class,'read']);
-        Route::put('{id}/delete', [PeopleController::class,'delete']);
+        Route::delete('{id}/delete', [PeopleController::class,'delete']);
         Route::get('compact', [PeopleController::class,'compact']);
     });
+
+    /** ATTRIBUTE SECTION */
+    Route::group([
+        'prefix' => 'attributes',
+    ], function () {
+        Route::get('', [AttributeController::class,'index']);
+        Route::post('create', [AttributeController::class,'create']);
+        Route::put('update', [AttributeController::class,'update']);
+        Route::get('{id}/read', [AttributeController::class,'read']);
+        Route::delete('{id}/delete', [AttributeController::class,'delete']);
+        Route::get('compact', [AttributeController::class,'compact']);
+    /**
+         * Check the unique user information
+         */
+        Route::get('name/exist',[AttributeController::class,'checkName']);
+    });
+
+    /** VARIANT SECTION */
+    Route::group([
+        'prefix' => 'variants',
+    ], function () {
+        Route::get('', [VariantController::class,'index']);
+        Route::post('create', [VariantController::class,'create']);
+        Route::put('update', [VariantController::class,'update']);
+        Route::get('{id}/read', [VariantController::class,'read']);
+        Route::delete('{id}/delete', [VariantController::class,'delete']);
+        Route::get('compact', [VariantController::class,'compact']);
+    });
+
+    /** ATTRINUTE VARIANT SECTION */
+    Route::group([
+        'prefix' => 'attributevariants',
+    ], function () {
+        Route::get('', [AttributeVariantController::class,'index']);
+        Route::post('create', [AttributeVariantController::class,'create']);
+        Route::put('update', [AttributeVariantController::class,'update']);
+        Route::get('{id}/read', [AttributeVariantController::class,'read']);
+        Route::delete('{id}/delete', [AttributeVariantController::class,'delete']);
+        Route::get('compact', [AttributeVariantController::class,'compact']);
+    });
+
+    /** PRODUCT SECTION */
+    Route::group([
+        'prefix' => 'products',
+    ], function () {
+        Route::get('', [ProductController::class,'index']);
+        Route::post('create', [ProductController::class,'create']);
+        Route::put('update', [ProductController::class,'update']);
+        Route::get('{id}/read', [ProductController::class,'read']);
+        Route::delete('{id}/delete', [ProductController::class,'delete']);
+        Route::get('compact', [ProductController::class,'compact']);
+    });
+
+    /** STOCK SECTION */
+    Route::group([
+        'middleware' => 'auth:api' ,
+        'prefix' => 'stocks',
+    ], function () {
+        Route::get('', [StockController::class,'index']);
+        Route::post('create', [StockController::class,'create']);
+        Route::put('update', [StockController::class,'update']);
+        Route::get('{id}/read', [StockController::class,'read']);
+        Route::delete('{id}/delete', [StockController::class,'delete']);
+        Route::get('compact', [StockController::class,'compact']);
+
+        Route::post('stockin', [StockController::class,'stockIn']);
+        Route::post('stockout', [StockController::class,'stockOut']);
+        Route::get('transactions', [StockController::class,'transactions']);
+    });
+
+    /** UNIT SECTION */
+    Route::group([
+        'prefix' => 'units',
+    ], function () {
+        Route::get('', [UnitController::class,'index']);
+        Route::post('create', [UnitController::class,'create']);
+        Route::put('update', [UnitController::class,'update']);
+        Route::get('{id}/read', [UnitController::class,'read']);
+        Route::delete('{id}/delete', [UnitController::class,'delete']);
+        Route::get('compact', [UnitController::class,'compact']);
+    });
+
+    /** UNIT CONVENTION SECTION */
+    Route::group([
+        'prefix' => 'unitconventions',
+    ], function () {
+        Route::get('', [UnitConventionController::class,'index']);
+        Route::post('create', [UnitConventionController::class,'create']);
+        Route::put('update', [UnitConventionController::class,'update']);
+        Route::get('{id}/read', [UnitConventionController::class,'read']);
+        Route::delete('{id}/delete', [UnitConventionController::class,'delete']);
+        Route::get('compact', [UnitConventionController::class,'compact']);
+    });
+
 });

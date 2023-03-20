@@ -96,6 +96,27 @@ class DatabaseSeeder extends Seeder
         $chamroeunoum->assignRole( $super );
         $sophannithchea->assignRole( $super );
 
+        /**
+         * Generate Stock Transaction Type
+         */
+        \App\Models\Product\StockTransactionType::create([
+            'name' => 'stock_in' ,
+            'description' => 'Put in product into stock.'
+        ]);
+        \App\Models\Product\StockTransactionType::create([
+            'name' => 'stock_out' ,
+            'description' => 'Take out product from stock.'
+        ]);
+        \App\Models\Product\StockTransactionType::create([
+            'name' => 'defeat' ,
+            'description' => 'Put product in with defeat status'
+        ]);
+
+
         $this->call(TransactionTypesTableSeeder::class);
+
+        /**
+         * Create 
+         */
     }
 }

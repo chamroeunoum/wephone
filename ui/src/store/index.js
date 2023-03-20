@@ -5,6 +5,16 @@ import client from './modules/client'
 import loan from './modules/loan'
 import people from './modules/people'
 // import staff from './modules/staff'
+/**
+ * Product store module
+ */
+import attribute from './modules/product/attribute'
+import variant from './modules/product/variant'
+import attributevariant from './modules/product/attributevariant'
+import unit from './modules/product/unit'
+import unitconvention from './modules/product/unitconvention'
+import product from './modules/product/product'
+import stock from './modules/product/stock'
 
 const debug = process.env.NODE_ENV !== 'production'
 
@@ -20,7 +30,15 @@ export default createStore({
     client,
     loan,
     people,
-    // staff
+    // staff ,
+    // Product modules
+    attribute ,
+    variant ,
+    attributevariant ,
+    unit ,
+    unitconvention ,
+    product ,
+    stock
   },
   strict: debug,
   plugins: debug ? 

@@ -56,7 +56,7 @@ const actions = {
     return await crud.read(rootState.apiServer+"/"+state.model.name+"/email/exist?email="+params.email)
   },
   async activate({state, commit, rootState}, params){
-    return await crud.update(rootState.apiServer+"/"+state.model.name+"/activate",params)
+    return await crud.update(rootState.apiServer+"/"+state.model.name+'/'+params.id+"/activate",params)
   },
   // Read user with role client
   async client ({ state, commit, rootState },params) {

@@ -64,7 +64,7 @@ const actions = {
     return await crud.read(rootState.apiServer+"/"+state.model.name+"/email/exist?email="+params.email)
   },
   async activate({state, commit, rootState}, params){
-    return await crud.update(rootState.apiServer+"/"+state.model.name+"/activate",params)
+    return await crud.update(rootState.apiServer+"/"+state.model.name+'/'+params.id+"/activate",params)
   },
   async compact ({ state, commit, rootState },params) {
     return await crud.list(rootState.apiServer+"/"+state.model.name+'/compact',params)
