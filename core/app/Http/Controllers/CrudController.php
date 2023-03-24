@@ -208,6 +208,7 @@ class CrudController extends Controller {
                                 }
                             });
                     }
+
                     if( isset( $this->request->pivots) && !empty( $this->request->pivots) ){
                         foreach( $this->request->pivots AS $pivot){
                             if (
@@ -635,3 +636,4 @@ class CrudController extends Controller {
         return false ;
     }
 }
+                

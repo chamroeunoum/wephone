@@ -35,6 +35,8 @@ import ClientUpdateCrud from './components/client/update.vue'
  */
 import ProductCrud from './components/product/product/index.vue'
 import ProductListCrud from './components/product/product/list.vue'
+import ProductThumbnailCrud from './components/product/product/thumbnail.vue'
+
 import ProductCreateCrud from './components/product/product/create.vue'
 import ProductUpdateCrud from './components/product/product/update.vue'
 
@@ -410,10 +412,15 @@ if( !isAdmin() ){
                 is_admin : true
             },
             children: [
+                // {
+                //     name: "ProductList" ,
+                //     path: '' ,
+                //     component: ProductListCrud
+                // },
                 {
-                    name: "ProductList" ,
+                    name: "ProductThumbnail" ,
                     path: '' ,
-                    component: ProductListCrud
+                    component: ProductThumbnailCrud
                 },
                 {
                     name: "ProductCreate" ,

@@ -10,6 +10,9 @@ class Product extends Model
 {
     use HasFactory, SoftDeletes;
     protected $guarded = ['id'];
+    protected $casts = [
+        'images' => 'array'
+    ];
     public function units(){
         return $this->hasMany(\App\Models\Product\Product::class,'id','product_id');
     }

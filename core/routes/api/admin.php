@@ -218,6 +218,9 @@ Route::group([
         Route::get('{id}/read', [ProductController::class,'read']);
         Route::delete('{id}/delete', [ProductController::class,'delete']);
         Route::get('compact', [ProductController::class,'compact']);
+
+        Route::post('upload',[ProductController::class,'upload']);
+        Route::put('featurepicture', [ProductController::class,'featurePicture']);
     });
 
     /** STOCK SECTION */

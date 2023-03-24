@@ -34,48 +34,25 @@
       <div class="filters-bar"></div>
     </div>
     <!-- Table of crud -->
-    <div class="vcb-table-panel relative">
-      <table class="vcb-table" >
-        <tr class="vcb-table-headers" >
-          <th class="vcb-table-header" >ល.រ</th>
-          <th class="vcb-table-header">ឈ្មោះ</th>
-          <th class="vcb-table-header">ប្រភព</th>
-          <th class="vcb-table-header">រូបភាព</th>
-          <th class="vcb-table-header text-right w-40" >ប្រតិបត្តិការ</th>
-        </tr>
-        <tr v-for="(record, index) in table.records.matched" :key='index' class="vcb-table-row" >
-          <td class="vcb-table-cell font-bold" >{{ index + 1 }}</td>
-          <td class="vcb-table-cell" >
+    <div class="vcb-table-panel relative flex items-start flex-wrap justify-center ">
+        <div v-for="(record, index) in table.records.matched" :key='index' class="relative p-2 m-2 border border-gray-300 shadow rounded w-60 pb-10" >
+          <div  class="my-2" >
+            <img :src="record.images.length?record.images[0]:'/src/assets/wephone.png'" class="w-full" @click="showFeaturePictureModal(record)" />
+          </div>
+          <div class="my-2 font-bold" >{{ index + 1 }}</div>
+          <div class="my-2" >
             <n-input class="inline-input" type="text" v-model:value="record.description" @blur="inlineUpdate(record)" ></n-input>
-          </td>
-          <td  class="vcb-table-cell" >
+          </div>
+          <div  class="my-2" >
             <n-input class="inline-input" type="text" v-model:value="record.origin" @blur="inlineUpdate(record)" ></n-input>
-          </td>
-          <td  class="vcb-table-cell w-24" >
-            <img :src="record.images[0]" class="w-full m-1" @click="showFeaturePictureModal(record)" />
-          </td>
-          <td class="vcb-table-actions-panel text-right w-40" >
-            <!-- <n-icon size="22" class="cursor-pointer text-red-500 mx-1" title="ថែមកម្ចី" @click="showAddMoreLoanModal(record)" >
-              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g fill="none"><path d="M4.5 2A1.5 1.5 0 0 0 3 3.5v13A1.5 1.5 0 0 0 4.5 18h7a1.5 1.5 0 0 0 1.5-1.5V15a.5.5 0 0 0-.5-.5c-.413 0-.677-.102-.856-.236c-.183-.137-.322-.342-.424-.623c-.214-.588-.22-1.367-.22-2.141a.5.5 0 0 0-.147-.354l-.286-.287l-1.213-1.213c-.467-.467-.604-.78-.63-.955c-.02-.14.022-.234.122-.33c.214-.205.367-.344.54-.386c.103-.026.338-.044.76.378l3 3a.5.5 0 0 0 .708-.707L13 9.793V6.707l2.56 2.56a1.5 1.5 0 0 1 .44 1.061V17.5a.5.5 0 0 0 1 0v-7.172a2.5 2.5 0 0 0-.732-1.767L13 5.293V3.5A1.5 1.5 0 0 0 11.5 2h-7zM12 5.5v3.293l-1.146-1.147c-.579-.578-1.154-.777-1.705-.643a1.517 1.517 0 0 0-.313.115A3.001 3.001 0 0 0 5 10a3 3 0 0 0 5.007 2.23c.017.578.075 1.21.273 1.753c.148.407.384.796.764 1.08l.006.006A1.5 1.5 0 0 0 10 16.5v.5H6v-.5A1.5 1.5 0 0 0 4.5 15H4V5h.5A1.5 1.5 0 0 0 6 3.5V3h4v.5A1.5 1.5 0 0 0 11.5 5h.5v.5zm0 11v.009a.5.5 0 0 1-.5.491H11v-.5a.5.5 0 0 1 .5-.5h.5v.5zM6 10a2 2 0 0 1 1.874-1.996c-.124.23-.187.51-.139.833c.071.482.378.983.911 1.516l.907.907A2 2 0 0 1 6 10zM5 3v.5a.5.5 0 0 1-.5.5H4v-.5a.5.5 0 0 1 .5-.5H5zM4 16h.5a.5.5 0 0 1 .5.5v.5h-.5a.5.5 0 0 1-.5-.5V16zm8-12h-.5a.5.5 0 0 1-.5-.5V3h.5a.5.5 0 0 1 .5.5V4z" fill="currentColor"></path></g></svg>
-            </n-icon>
-            <n-icon size="22" class="cursor-pointer text-green-500 mx-1" title="សងត្រឡប់" @click="showRepaybackLoanModal(record)" >
-              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g fill="none"><path d="M4.5 2A1.5 1.5 0 0 0 3 3.5v13A1.5 1.5 0 0 0 4.5 18h7a1.5 1.5 0 0 0 1.5-1.5V15a.5.5 0 0 0-.5-.5c-.413 0-.677-.102-.856-.236c-.183-.137-.322-.342-.424-.623c-.214-.588-.22-1.367-.22-2.141a.5.5 0 0 0-.147-.354l-.286-.287l-1.213-1.213c-.467-.467-.604-.78-.63-.955c-.02-.14.022-.234.122-.33c.214-.205.367-.344.54-.386c.103-.026.338-.044.76.378l3 3a.5.5 0 0 0 .708-.707L13 9.793V6.707l2.56 2.56a1.5 1.5 0 0 1 .44 1.061V17.5a.5.5 0 0 0 1 0v-7.172a2.5 2.5 0 0 0-.732-1.767L13 5.293V3.5A1.5 1.5 0 0 0 11.5 2h-7zM12 5.5v3.293l-1.146-1.147c-.579-.578-1.154-.777-1.705-.643a1.517 1.517 0 0 0-.313.115A3.001 3.001 0 0 0 5 10a3 3 0 0 0 5.007 2.23c.017.578.075 1.21.273 1.753c.148.407.384.796.764 1.08l.006.006A1.5 1.5 0 0 0 10 16.5v.5H6v-.5A1.5 1.5 0 0 0 4.5 15H4V5h.5A1.5 1.5 0 0 0 6 3.5V3h4v.5A1.5 1.5 0 0 0 11.5 5h.5v.5zm0 11v.009a.5.5 0 0 1-.5.491H11v-.5a.5.5 0 0 1 .5-.5h.5v.5zM6 10a2 2 0 0 1 1.874-1.996c-.124.23-.187.51-.139.833c.071.482.378.983.911 1.516l.907.907A2 2 0 0 1 6 10zM5 3v.5a.5.5 0 0 1-.5.5H4v-.5a.5.5 0 0 1 .5-.5H5zM4 16h.5a.5.5 0 0 1 .5.5v.5h-.5a.5.5 0 0 1-.5-.5V16zm8-12h-.5a.5.5 0 0 1-.5-.5V3h.5a.5.5 0 0 1 .5.5V4z" fill="currentColor"></path></g></svg>
-            </n-icon>
-            <n-icon size="22" class="cursor-pointer text-yellow-500 mx-1" @click="showScheduleModal(record)" title="កាលវិភាគបង់រំលោះ" >
-              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32"><path d="M25.7 9.3l-7-7c-.2-.2-.4-.3-.7-.3H8c-1.1 0-2 .9-2 2v24c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V10c0-.3-.1-.5-.3-.7zM18 4.4l5.6 5.6H18V4.4zM24 28H8V4h8v6c0 1.1.9 2 2 2h6v16z" fill="currentColor"></path><path d="M10 22h12v2H10z" fill="currentColor"></path><path d="M10 16h12v2H10z" fill="currentColor"></path></svg>
-            </n-icon>
-            <n-icon size="22" class="cursor-pointer text-green-500 mx-1" @click="showTransactionModal(record)" title="ប្រតិបត្តិការសងត្រឡប់" >
-              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g fill="none"><path d="M6.5 10a.5.5 0 1 0 0 1a.5.5 0 0 0 0-1zM6 12.5a.5.5 0 1 1 1 0a.5.5 0 0 1-1 0zm2-2a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 1.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zM6 2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7.414a1.5 1.5 0 0 0-.44-1.06l-3.914-3.915A1.5 1.5 0 0 0 9.586 2H6zM5 4a1 1 0 0 1 1-1h3v3.5A1.5 1.5 0 0 0 10.5 8H14v6a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4zm5 2.5V3.207L13.793 7H10.5a.5.5 0 0 1-.5-.5zM16 8a1 1 0 0 1 1 1v5.06A3.94 3.94 0 0 1 13.06 18H7a1 1 0 0 1-1-1h7a3 3 0 0 0 3-3V8z" fill="currentColor"></path></g></svg>
-            </n-icon>
-            <n-icon size="22" class="cursor-pointer text-blue-500 mx-1" @click="showEditModal(record)" title="កែប្រែព័ត៌មាន" >
-              <Edit20Regular />
-            </n-icon>
-            <n-icon size="22" class="cursor-pointer text-red-500 mx-1" @click="deleteRecord(record)" title="លុបចោល" >
-              <TrashOutline />
-            </n-icon> -->
-          </td>
-        </tr>
-      </table>
+          </div>
+          <n-icon size="22" class="cursor-pointer text-red-500 left-2 bottom-2 absolute " @click="deleteRecord(record)" title="លុបចោល" >
+            <TrashOutline />
+          </n-icon>
+          <n-icon size="22" class="cursor-pointer text-gray-700 right-2 bottom-2 absolute " @click="showUploadPictureModal(record)" title="បញ្ចូលរូបភាព" >
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24"><path d="M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5c0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4c0-2.05 1.53-3.76 3.56-3.97l1.07-.11l.5-.95A5.469 5.469 0 0 1 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5l1.53.11A2.98 2.98 0 0 1 22 15c0 1.65-1.35 3-3 3zM8 13h2.55v3h2.9v-3H16l-4-4z" fill="currentColor"></path></svg>
+          </n-icon>
+        </div>
       <!-- Loading -->
       <div v-if="table.loading" class="table-loading absolute left-0 top-0 right-0 bottom-0 bg-white bg-opacity-75 ">
         <div class="spinner mt-24">
@@ -106,10 +83,10 @@
     </div>
     <!-- Form create account -->
     <create-form v-bind:model="model" v-bind:show="createModal.show" :onClose="closeCreateModal" />
-    <!-- Form feature picture -->
+    <!-- Form update account -->
     <feature-picture-form v-bind:model="model" v-bind:show="featurePictureModal.show" :onClose="closeFeaturePictureModal" :record="selectedRecord" />
-    <!-- Form upload picture-->
-    <upload-picture-form v-bind:model="model" v-bind:show="uploadModal.show" :onClose="closeUploadModal" :record="selectedRecord" />
+    <!-- Form upload picture -->
+    <upload-picture-form v-bind:model="model" v-bind:show="uploadPictureModal.show" :onClose="closeUploadPictureModal" :record="selectedRecord" />
   </div>
 </template>
 <script>
@@ -130,6 +107,7 @@ import { Edit20Regular, Key16Regular, Save20Regular, Add20Regular, Search20Regul
 import CreateForm from './create.vue'
 import UpdateForm from './update.vue'
 import FeaturePictureForm from './featurepicture.vue'
+import UploadPictureForm from './upload.vue'
 export default {
   name: "User" ,
   components: {
@@ -150,7 +128,8 @@ export default {
     // Form
     CreateForm,
     UpdateForm ,
-    FeaturePictureForm
+    FeaturePictureForm ,
+    UploadPictureForm
   },
   setup(){
     var store = useStore()
@@ -363,6 +342,18 @@ export default {
       getRecords()
     }
 
+    var uploadPictureModal = reactive({show:false})
+    function showUploadPictureModal(record){
+      console.log( record)
+      selectedRecord.value = record
+      uploadPictureModal.show = true
+    }
+
+    function closeUploadPictureModal(){
+      uploadPictureModal.show = false
+      getRecords()
+    }
+
     /**
      * Initial the data
      */
@@ -397,6 +388,12 @@ export default {
       createModal ,
       showCreateModal ,
       closeCreateModal ,     
+      /**
+       * Upload
+       */
+      uploadPictureModal ,
+      showUploadPictureModal ,
+      closeUploadPictureModal ,     
       /**
        * Editing
        */

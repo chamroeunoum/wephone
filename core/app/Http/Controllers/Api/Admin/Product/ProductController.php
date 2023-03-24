@@ -6,13 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\CrudController;
 use App\Models\Product\Product as RecordModel;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
     private $selectFields = [
         'id',
         'description' ,
-        'image' ,
+        'images' ,
         'origin'
     ];
     /**
@@ -89,10 +91,18 @@ class ProductController extends Controller
 
         $request->merge( $queryString );
 
-        $crud = new CrudController(new RecordModel(), $request, $this->selectFields );
+        $crud = new CrudController(new RecordModel(), $request, $this->selectFields , [
+            'images' => function($images){
+                return is_array( $images ) && !empty( $images ) ? array_map(function( $image ){ 
+                    return \Storage::disk('public')->exists( $image ) ? \Storage::disk("public")->url( $image  ) : "" ;
+                }, $images ) : [] ;
+            }
+        ] );
+
         $crud->setRelationshipFunctions([
             'units' => ['id','name'] ,
             'stock' => ['id','attribute_id','unit_id','quantity']
+            
         ]);
         $builder = $crud->getListBuilder();
         $responseData = $crud->pagination(true, $builder);
@@ -113,6 +123,7 @@ class ProductController extends Controller
                 ],403
             );
         }else{
+            $request->merge(['images' =>[]]);
             $record = new RecordModel(
                 $request->except(['_token', '_method', 'current_tab', 'http_referrer'])
             );
@@ -226,6 +237,7 @@ class ProductController extends Controller
     {
         $crud = new CrudController(new RecordModel(), $request, ['id', 'name']);
         $responseData['records'] = $crud->forFilter();
+        $responseData['ok'] = true ;
         $responseData['message'] = __("crud.read.success");
         return response()->json($responseData, 200);
     }
@@ -307,5 +319,102 @@ class ProductController extends Controller
         $responseData['message'] = __("crud.read.success");
         $responseData['ok'] = true ;
         return response()->json($responseData, 200);
+    }
+    /**
+     * Upload
+     */
+    public function upload(Request $request){
+        $product = RecordModel::find( $request->id );
+        if( $product ){
+            $images = $product->images ;
+            foreach( $_FILES['files']['tmp_name'] AS $index => $file ){
+                $uniqeName = \Storage::disk('public')->putFile( "products/".$product->id, new File( $_FILES['files']['tmp_name'][$index] ) );
+                $images[] = $uniqeName ;
+            }
+            $product->images = $images ;
+            $product->save();
+            $images = [] ;
+            foreach( $product->images AS $index => $image ){
+                $images[] = \Storage::disk('public')->exists( $image ) ? \Storage::disk("public")->url( $image  ) : [] ;
+            }
+            $product->images = $images ;
+            return response([
+                'record' => $product ,
+                'images' => $images ,
+                'ok' => true ,
+                'message' => 'ជោគជ័យក្នុងការដាក់រូបភាព។'
+            ],200);
+        }else{
+            return response([
+                'ok' => false ,
+                'message' => 'សូមបញ្ជាក់អំពីផលិតផលរបស់រូបភាពនេះ។'
+            ],403);
+        }
+    }
+    /**
+     * Set feature picture
+     */
+    public function featurePicture(Request $request){
+        $record = RecordModel::find($request->id);
+        if( $record && is_array( $record->images ) && !empty( $record->images ) ){
+            // Clear the selected index out of the array
+            $filtered = array_filter( 
+                $record->images , 
+                function( $image , $index ) 
+                use ( $request ) {
+                    return $index != $request->index ;
+                } ,
+                ARRAY_FILTER_USE_BOTH
+            );
+            // Add the selected index into the first of the array to make it feature
+            array_unshift( $filtered , $record->images[$request->index]);
+            $record->images = $filtered ;
+            $record->save();
+            return response()->json([
+                'record' => $record ,
+                'ok' => true ,
+                'message' => 'បានប្ដូរទីតាំងរូបភាពរួចរាល់។'
+            ], 200);
+        }else{
+            return response([
+                'record' => $record ,
+                'ok' => false ,
+                'id' => $request->input() ,
+                'message' => 'មានបញ្ហាពេលកំណត់រូបភាពបឋម។'
+                ], 403);
+        }
+    }
+    /**
+     * Remove Picture
+     */
+    public function removePicture(Request $request){
+        $record = RecordModel::find($request->id);
+        if( $record && is_array( $record->images ) && !empty( $record->images ) ){
+            // Clear the selected index out of the array
+            $filtered = array_filter( 
+                $record->images , 
+                function( $image , $index ) 
+                use ( $request ) {
+                    return $index != $request->index ;
+                } ,
+                ARRAY_FILTER_USE_BOTH
+            );
+            // Add the selected index into the first of the array to make it feature
+            array_unshift( $filtered , $record->images[$request->index]);
+            $record->images = $filtered ;
+            $record->save();
+            return response()->json([
+                'record' => $record ,
+                'ok' => true ,
+                'message' => 'បានប្ដូរទីតាំងរូបភាពរួចរាល់។'
+            ], 200);
+        }else{
+            return response([
+                'record' => $record ,
+                'ok' => false ,
+                'id' => $request->input() ,
+                'message' => 'មានបញ្ហាពេលកំណត់រូបភាពបឋម។'
+                ], 403);
+        }
     }
 }

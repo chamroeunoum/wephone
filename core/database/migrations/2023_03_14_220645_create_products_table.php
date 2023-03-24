@@ -17,7 +17,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('description',255)->nullable(false)->comment('The description of the product.');
             $table->string('origin',255)->nullable(false)->comment('The origin of the product.');
-            $table->string('image',255)->nullable(false)->comment('The image of the product.');
+            $table->string('images',255)->nullable(false)->comment('The image of the product.');
             $table->timestamps();
             $table->softDeletes();
         });

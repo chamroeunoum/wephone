@@ -57,6 +57,12 @@ const actions = {
   async compact ({ state, commit, rootState },params) {
     return await crud.list(rootState.apiServer+"/"+state.model.name+'/compact',params)
   },
+  async upload({ state, commit, rootState },formData) {
+    return await crud.upload(rootState.apiServer+"/"+state.model.name+"/upload",formData)
+  },
+  async featurePicture ({ state, commit, rootState },params) {
+    return await crud.update(rootState.apiServer+"/"+state.model.name+"/featurepicture",params)
+  },
 }
 
 // mutations
